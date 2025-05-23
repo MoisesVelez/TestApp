@@ -16,7 +16,7 @@ import com.example.testapp.ui.theme.TestAppTheme
 class MainActivity : ComponentActivity() {
     private lateinit var navHostController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
-        val screenSplash = installSplashScreen()
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
