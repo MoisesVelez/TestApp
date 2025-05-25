@@ -86,7 +86,7 @@ fun InitialScreen(navHostController: NavHostController){
                 )
 
                 Text(
-                    text = "Ingresar",
+                    text = "Registrarse",
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
@@ -109,7 +109,7 @@ fun InitialScreen(navHostController: NavHostController){
 
                 Image(
                     painter = painterResource(id = R.drawable.google_chrome),
-                    contentDescription = "Ingresar",
+                    contentDescription = "Registrarse google",
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                         .padding(start = 16.dp)
