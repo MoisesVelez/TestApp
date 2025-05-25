@@ -15,7 +15,7 @@ fun Navigationwrapper(navHostController: NavHostController) {
 
     NavHost(navController = navHostController,startDestination= Routes.SplashScreen.routes){
         composable(Routes.SplashScreen.routes) { SplashScreen(navHostController) }
-        composable(Routes.Screen1.routes) { InitialScreen() }
+        composable(Routes.Screen1.routes) { InitialScreen(navHostController) }
         composable(Routes.Screen2.routes) { LoginScreen() }
         composable(Routes.Screen3.routes) { SignUpScreen() }
 
