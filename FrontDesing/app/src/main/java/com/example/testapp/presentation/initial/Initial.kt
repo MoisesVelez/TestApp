@@ -126,7 +126,7 @@ fun InitialScreen(navHostController: NavHostController){
 
         }
         Spacer(modifier =Modifier.height(15.dp))
-        Text("Iniciar Sesion", color = Color.Black ,fontWeight = FontWeight.Bold, modifier = Modifier.clickable(onClick = {navHostController.navigate(Routes.Screen2.routes)}))
+        Text("Iniciar sesion", color = Color.Black ,fontWeight = FontWeight.Bold, modifier = Modifier.clickable(onClick = {navHostController.navigate(Routes.Screen2.routes)}))
 
 
         Spacer(modifier = Modifier.weight(2f))
