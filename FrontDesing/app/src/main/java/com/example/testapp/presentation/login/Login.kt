@@ -54,8 +54,8 @@ import com.example.testapp.ui.theme.White
 fun LoginScreen(LoginViewModel: MvvmPresentation) {
     val colorEscogido = Colores()
 
-    val email:String by LoginViewModel.email.observeAsState(initial = "")
-    val contrasena: String by LoginViewModel.password.observeAsState(initial = "")
+    val email by LoginViewModel.email.observeAsState(initial = "")
+    val contrasena by LoginViewModel.password.observeAsState(initial = "")
     var contrasenaVisible by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
@@ -73,10 +73,11 @@ fun LoginScreen(LoginViewModel: MvvmPresentation) {
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-
+//--------------------
         Spacer(modifier = Modifier.size(150.dp))
-
+//-----------------------
         Text("Email o usuario", fontWeight = FontWeight.Bold,fontSize = 20.sp,color = Color.Black)
+//----------------------
         TextField(value = email,
             onValueChange = { LoginViewModel.onLoginChanged(email = it, password = contrasena)},
             modifier = Modifier
@@ -92,8 +93,11 @@ fun LoginScreen(LoginViewModel: MvvmPresentation) {
                 unfocusedTextColor = Color.Black,
                 unfocusedContainerColor = White,
                 focusedContainerColor = colorEscogido))
+
         Spacer(modifier = Modifier.size(15.dp))
+//-----------------------
         Text("Contraseña", fontWeight = FontWeight.Bold,fontSize = 20.sp,color = Color.Black)
+//--------------------
         TextField(value = contrasena,
             onValueChange = {LoginViewModel.onLoginChanged(email=email, password = it)},
             modifier = Modifier
@@ -121,6 +125,7 @@ fun LoginScreen(LoginViewModel: MvvmPresentation) {
                 }
             })
         Spacer(modifier = Modifier.size(60.dp))
+        //---------------------------------
         Button(
             onClick = {},
             modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp).height(48.dp),
@@ -150,6 +155,7 @@ fun LoginScreen(LoginViewModel: MvvmPresentation) {
             }
 
         }
+        //--------------------------
         Spacer(modifier = Modifier.weight(1f))
     }
 
