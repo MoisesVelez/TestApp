@@ -1,5 +1,7 @@
 package com.example.testapp.presentation.login
 
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,10 +16,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -27,6 +28,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -43,17 +45,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.testapp.R
+import com.example.testapp.mvvm.MvvmPresentation
 import com.example.testapp.presentation.initial.Colores
 import com.example.testapp.ui.theme.White
 
+
 @Composable
-fun LoginScreen(){
+fun LoginScreen(LoginViewModel: MvvmPresentation) {
     val colorEscogido = Colores()
 
-    var email by remember { mutableStateOf("") }
-    var contrasena by remember { mutableStateOf("") }
+    val email:String by LoginViewModel.email.observeAsState(initial = "")
+    val contrasena: String by LoginViewModel.password.observeAsState(initial = "")
     var contrasenaVisible by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
+
     Column(
         modifier = Modifier.fillMaxSize()
             .background(Brush.verticalGradient(listOf(White, colorEscogido)))
@@ -73,10 +78,11 @@ fun LoginScreen(){
 
         Text("Email o usuario", fontWeight = FontWeight.Bold,fontSize = 20.sp,color = Color.Black)
         TextField(value = email,
-            onValueChange = { email = it },
+            onValueChange = { LoginViewModel.onLoginChanged(email = it, password = contrasena)},
             modifier = Modifier
             .fillMaxWidth().padding(horizontal = 32.dp),
             singleLine = true,
+            shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
@@ -89,10 +95,11 @@ fun LoginScreen(){
         Spacer(modifier = Modifier.size(15.dp))
         Text("Contraseña", fontWeight = FontWeight.Bold,fontSize = 20.sp,color = Color.Black)
         TextField(value = contrasena,
-            onValueChange = { contrasena = it },
+            onValueChange = {LoginViewModel.onLoginChanged(email=email, password = it)},
             modifier = Modifier
             .fillMaxWidth().padding(horizontal = 32.dp),
             singleLine = true,
+            shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
@@ -105,8 +112,8 @@ fun LoginScreen(){
             visualTransformation = if (contrasenaVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 val image = if (contrasenaVisible)
-                    Icons.Default.Lock
-                else Icons.Default.Lock
+                    Icons.Filled.Visibility
+                else Icons.Filled.VisibilityOff
 
                 IconButton(onClick = { contrasenaVisible = !contrasenaVisible }) {
                     Icon(imageVector = image, contentDescription = if (contrasenaVisible) "Ocultar contraseña" else "Mostrar contraseña",
@@ -117,7 +124,8 @@ fun LoginScreen(){
         Button(
             onClick = {},
             modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp).height(48.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = colorEscogido)
+            colors = ButtonDefaults.buttonColors(containerColor = colorEscogido),
+
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -125,7 +133,7 @@ fun LoginScreen(){
             ) {
 
                 Image(
-                    painter = painterResource(id = R.drawable.persona),
+                    painter = painterResource(id = R.drawable.la_mejor_experiencia_del_cliente),
                     contentDescription = "Registrarse",
                     modifier = Modifier
                         .align(Alignment.CenterStart)
